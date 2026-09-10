@@ -3,8 +3,6 @@ local UIS = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
 local GUI_NAME = "BombClutchGUI"
-local FIRERATE = 22
-local POWER = 50
 
 local cooldown = false
 local locked = false
@@ -115,7 +113,6 @@ local function getCharacter()
 	return player.Character or player.CharacterAdded:Wait()
 end
 
-local function getFakeBomb()
 	local character = player.Character
 
 	if character then
@@ -196,9 +193,6 @@ local function watchBomb(tool)
 	end
 
 	connections[tool] = handle:GetPropertyChangedSignal("Transparency"):Connect(function()
-		if internalThrow then
-			return
-		end
 
 		if handle.Transparency >= 1 then
 			bombUnavailable = true
@@ -372,7 +366,6 @@ UIS.InputChanged:Connect(function(input)
 			startPos.X.Scale,
 			startPos.X.Offset + delta.X,
 			startPos.Y.Scale,
-			startPos.Y.Offset + delta.Y
 		)
 	end
 end)
@@ -387,7 +380,7 @@ end)
 task.spawn(function()
 	while gui.Parent do
 		scanBomb()
-		task.wait(0.5)
+		task.wait(0.15)
 	end
 end)
 
